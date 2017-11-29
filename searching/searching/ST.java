@@ -2,6 +2,7 @@ package searching;
 
 import java.util.Iterator;
 
+@SuppressWarnings("hiding")
 public abstract class ST<Key, Value> implements Iterable<Key> {
 	public <Key, Value> ST() {
 	}

@@ -8,12 +8,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
+@SuppressWarnings("rawtypes")
 public class Quick3way {
 	public static void sort(Comparable[] a) {
 		sort(a, 0, a.length - 1);
 	}
 
+	@SuppressWarnings("unchecked")
 	private static void sort(Comparable[] a, int lo, int hi) {
 		if (lo >= hi)
 			return;

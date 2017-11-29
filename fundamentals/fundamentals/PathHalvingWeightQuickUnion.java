@@ -1,7 +1,5 @@
 package fundamentals;
 
-import java.util.Arrays;
-
 import com.algs4.stdlib.StdIn;
 import com.algs4.stdlib.StdOut;
 

@@ -1,9 +1,15 @@
 package sorting;
 
-import static sorting.Example.*;
+import static sorting.Example.exch;
+import static sorting.Example.isSorted;
+import static sorting.Example.less;
+import static sorting.Example.show;
 
-import com.algs4.stdlib.StdIn;
-
+import java.io.BufferedInputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+@SuppressWarnings("rawtypes")
 public class Shell implements Sort {
 	static int count;
 	@Override
@@ -25,12 +31,18 @@ public class Shell implements Sort {
 	}
 
 	public static void main(String[] args) {
-		String[] a = StdIn.readStrings();
+		Scanner scan = new Scanner(new BufferedInputStream(System.in), "UTF-8");
+		List<String> target = new ArrayList<>();
+		while (scan.hasNext())
+			target.add(scan.next());
+		String[] a = new String[target.size()];
+		target.toArray(a);
 		Sort sort = new Selection();
 		sort.sort(a);
 		System.out.println(isSorted(a));
 		System.out.println(sort.getClass().getSimpleName());
 		show(a);
+		scan.close();
 	}
 
 }

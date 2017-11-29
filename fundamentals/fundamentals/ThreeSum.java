@@ -60,8 +60,6 @@ public class ThreeSum {
 
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
-		String fileName = System.getProperty("user.dir")
-				+ "\\resource\\AlgorithmsSedgewick-master\\1-Fundamentals\\1-4-AnalysisOfAlgorithms\\1Kints.txt";
 		int[] a = In.readInts(args[0]);
 		Stopwatch timer = new Stopwatch();
 		int cnt = count(a);

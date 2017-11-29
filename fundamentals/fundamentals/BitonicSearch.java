@@ -1,7 +1,5 @@
 package fundamentals;
 
-import java.util.Arrays;
-
 public class BitonicSearch {
 	public static int bitonicSearch(int[] a, int key) {
 		int max = LocalMaximum(a);

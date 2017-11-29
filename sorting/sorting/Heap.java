@@ -4,10 +4,9 @@ import static sorting.Example.isSorted;
 
 import java.util.Arrays;
 import java.util.Random;
-
+@SuppressWarnings("rawtypes")
 public class Heap {
 
-	@SuppressWarnings("rawtypes")
 	public static void sort(Comparable[] a) {
 		int N = a.length - 1;
 		for (int i = (N - 1) / 2; i >= 0; i--) {
@@ -38,6 +37,7 @@ public class Heap {
 		a[j] = temp;
 	}
 
+	@SuppressWarnings("unchecked")
 	private static boolean less(Comparable[] a, int i, int j) {
 		return a[i].compareTo(a[j]) < 0;
 	}

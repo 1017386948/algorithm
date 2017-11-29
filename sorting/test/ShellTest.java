@@ -14,6 +14,7 @@ import sorting.Sort;
 
 public class ShellTest implements Sort {
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void sort(Comparable[] a) {
 		int N = a.length;

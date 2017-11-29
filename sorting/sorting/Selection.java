@@ -1,17 +1,15 @@
 package sorting;
 
-import static sorting.Example.*;
+import static sorting.Example.exch;
+import static sorting.Example.isSorted;
+import static sorting.Example.less;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
-
-import com.algs4.stdlib.StdIn;
-
+@SuppressWarnings("rawtypes")
 public class Selection implements Sort {
 
+	
 	@Override
 	public void sort(Comparable[] a) {
 		for (int i = 0; i < a.length - 1; i++) {

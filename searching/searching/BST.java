@@ -1,13 +1,10 @@
 package searching;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
-
-import com.algs4.stdlib.StdIn;
 
 public class BST<Key extends Comparable<Key>, Value> {
 	private Node root;

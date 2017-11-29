@@ -43,6 +43,7 @@ public class FilterSort {
 		sort(a, gt + 1, hi);
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private static boolean isSorted(Comparable[] a, int k) {
 
 		for (int i = 1; i <= k; i++)

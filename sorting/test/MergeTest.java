@@ -6,6 +6,7 @@ import static sorting.Example.less;
 import java.util.Arrays;
 import java.util.Random;
 
+@SuppressWarnings("rawtypes")
 public class MergeTest {
 	private static Comparable[] aux;
 

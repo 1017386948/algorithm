@@ -2,6 +2,7 @@ package avl;
 
 public class TwoThreeTree<Key, Value> {
 	Node root;
+	@SuppressWarnings("unused")
 	private class Node {
 		Key key;
 		Value value;

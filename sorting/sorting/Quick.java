@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
+@SuppressWarnings("rawtypes")
 public class Quick implements Sort {
 
 	@Override

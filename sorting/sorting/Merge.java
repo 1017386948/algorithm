@@ -4,7 +4,7 @@ import static sorting.Example.*;
 
 import java.util.Arrays;
 import java.util.Random;
-
+@SuppressWarnings("rawtypes")
 public class Merge {
 
 	private static Comparable[] aux;
@@ -48,7 +48,8 @@ public class Merge {
 		sort(a);
 		System.out.println(Arrays.toString(a));
 		System.out.println(isSorted(a));
-		Character[] c = new Character[] { 'E', 'A', 'S', 'Y', 'Q', 'U', 'E', 'S', 'T', 'I', 'O', 'N' };
+		Character[] c = new Character[]{'E', 'A', 'S', 'Y', 'Q', 'U', 'E', 'S',
+				'T', 'I', 'O', 'N'};
 		sort(c);
 		System.out.println(Arrays.deepToString(c));
 	}

@@ -12,6 +12,7 @@ import java.util.Random;
 
 import sorting.Sort;
 
+@SuppressWarnings("rawtypes")
 public class QuickTest implements Sort {
 
 	@Override

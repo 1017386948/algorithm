@@ -1,12 +1,13 @@
 package sorting;
 
 import com.algs4.stdlib.StdOut;
-
+@SuppressWarnings("rawtypes")
 public class Example {
 	public static void sort(Comparable[] a) {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public static boolean less(Comparable v, Comparable w) {
 		return v.compareTo(w) < 0;
 	}

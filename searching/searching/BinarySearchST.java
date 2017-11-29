@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.algs4.stdlib.StdIn;
-import com.algs4.stdlib.StdOut;
 
 public class BinarySearchST<Key extends Comparable<Key>, Value> {
 	private Key[] keys;

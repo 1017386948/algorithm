@@ -1,14 +1,19 @@
 package test;
 
+import static sorting.Example.exch;
+import static sorting.Example.isSorted;
+import static sorting.Example.less;
+import static sorting.Example.show;
+
+import java.io.BufferedInputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 import sorting.Sort;
-import static sorting.Example.*;
 
-import com.algs4.stdlib.StdIn;
-
-import sorting.Selection;
-
+@SuppressWarnings("rawtypes")
 public class SelectionTest implements Sort {
-
 	@Override
 	public void sort(Comparable[] a) {
 		for (int i = 0; i < a.length; i++) {
@@ -23,7 +28,12 @@ public class SelectionTest implements Sort {
 	}
 
 	public static void main(String[] args) {
-		String[] a = StdIn.readStrings();
+		Scanner scan = new Scanner(new BufferedInputStream(System.in), "UTF-8");
+		List<String> target = new ArrayList<>();
+		while (scan.hasNext())
+			target.add(scan.next());
+		String[] a = new String[target.size()];
+		scan.close();
 		Sort sort = new SelectionTest();
 		sort.sort(a);
 		System.out.println(isSorted(a));
