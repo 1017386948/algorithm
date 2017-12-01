@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer> {
+public class IndexMinPQ<Key extends Comparable<Key>>
+		implements
+			Iterable<Integer> {
 	private int N;
 	private int[] pq; // through item seek its index
 	private int[] qp;
@@ -107,7 +109,11 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
 		int temp = pq[i];
 		pq[i] = pq[j];
 		pq[j] = temp;
-
+		qp[pq[i]] = i;
+		qp[pq[j]] = j;
+		Key k = keys[i];
+		keys[i] = keys[j];
+		keys[j] = k;
 	}
 
 	private boolean less(Key k1, Key k2) {
@@ -147,7 +153,8 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
 	public static void main(String[] args) {
 
 		// insert a bunch of strings
-		String[] strings = { "it", "was", "the", "best", "of", "times", "it", "was", "the", "worst" };
+		String[] strings = {"it", "was", "the", "best", "of", "times", "it",
+				"was", "the", "worst"};
 
 		IndexMinPQ<String> pq = new IndexMinPQ<String>(strings.length);
 		for (int i = 0; i < strings.length; i++) {
