@@ -97,8 +97,6 @@ public class AVL<Key extends Comparable<Key>, Value> {
 				x.right = deleteMin(t.right);
 			}
 		}
-		x.N = size(x.left) + size(x.right) + 1;
-		x.height = Math.max(height(x.left), height(x.right)) + 1;
 		if (height(x.left) - height(x.right) > 1) {
 			if (key.compareTo(x.left.key) < 0)
 				x = leftLeftRotate(x);
@@ -110,6 +108,8 @@ public class AVL<Key extends Comparable<Key>, Value> {
 			else
 				x = rightLeftRotate(x);
 		}
+		x.N = size(x.left) + size(x.right) + 1;
+		x.height = Math.max(height(x.left), height(x.right)) + 1;
 		return x;
 	}
 
@@ -123,13 +123,13 @@ public class AVL<Key extends Comparable<Key>, Value> {
 		if (x.left == null)
 			return x.right;
 		x.left = deleteMin(x.left);
-		x.N = size(x.left) + size(x.right) + 1;
 		if (height(x.left) - height(x.right) < -1) {
 			if (size(x.right.right) > size(x.right.left))
 				x = rightRightRotate(x);
 			else
 				x = rightLeftRotate(x);
 		}
+		x.N = size(x.left) + size(x.right) + 1;
 		x.height = Math.max(height(x.left), height(x.right)) + 1;
 		return x;
 	}
