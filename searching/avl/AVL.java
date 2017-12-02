@@ -74,7 +74,7 @@ public class AVL<Key extends Comparable<Key>, Value> {
 	}
 
 	public void delete(Key key) {
-
+		root = delete(root, key);
 	}
 
 	private Node delete(Node x, Key key) {
@@ -87,11 +87,30 @@ public class AVL<Key extends Comparable<Key>, Value> {
 			x.right = delete(x.right, key);
 		else {
 			if (x.left == null)
-				return x.left;
-			else if (x.right == null)
 				return x.right;
-
+			else if (x.right == null)
+				return x.left;
+			else {
+				Node t = x;
+				x = Min(x.right);
+				x.left = t.left;
+				x.right = deleteMin(t.right);
+			}
 		}
+		x.N = size(x.left) + size(x.right) + 1;
+		x.height = Math.max(height(x.left), height(x.right)) + 1;
+		if (height(x.left) - height(x.right) > 1) {
+			if (key.compareTo(x.left.key) < 0)
+				x = leftLeftRotate(x);
+			else
+				x = leftRightRotate(x);
+		} else if (height(x.left) - height(x.right) < -1) {
+			if (key.compareTo(x.right.key) > 0)
+				x = rightRightRotate(x);
+			else
+				x = rightLeftRotate(x);
+		}
+		return x;
 	}
 
 	public void deleteMin() {
@@ -105,6 +124,13 @@ public class AVL<Key extends Comparable<Key>, Value> {
 			return x.right;
 		x.left = deleteMin(x.left);
 		x.N = size(x.left) + size(x.right) + 1;
+		if (height(x.left) - height(x.right) < -1) {
+			if (size(x.right.right) > size(x.right.left))
+				x = rightRightRotate(x);
+			else
+				x = rightLeftRotate(x);
+		}
+		x.height = Math.max(height(x.left), height(x.right)) + 1;
 		return x;
 	}
 
@@ -220,5 +246,7 @@ public class AVL<Key extends Comparable<Key>, Value> {
 		System.out.println(BST.optCompares(10679));
 		System.out.println(avl.size());
 		System.out.println(avl.height());
+		avl.delete("he");
+		System.out.println(avl.size());
 	}
 }
