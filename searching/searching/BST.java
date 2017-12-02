@@ -351,5 +351,6 @@ public class BST<Key extends Comparable<Key>, Value> {
 		// System.out.println(bst.ceiling("ba"));
 		// System.out.println(bst.size("a", "babble"));
 		System.out.println(bst.isBinaryTree());
+		System.out.println(bst.get("he"));
 	}
 }

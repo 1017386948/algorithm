@@ -1,6 +1,7 @@
 package sorting;
 
 import com.algs4.stdlib.StdOut;
+
 @SuppressWarnings("rawtypes")
 public class Example {
 	public static void sort(Comparable[] a) {
@@ -31,4 +32,24 @@ public class Example {
 		return true;
 	}
 
+	public static boolean isSorted(int[] a) {
+		for (int i = 1; i < a.length; i++)
+			if (a[i] < a[i - 1])
+				return false;
+		return true;
+	}
+
+	public static String arrayToString(int[] a) {
+		StringBuffer bf = new StringBuffer();
+		bf.append("[");
+		if (a.length != 0) {
+			int i = 0;
+			for (; i < a.length - 1; i++) {
+				bf.append(a[i]).append(", ");
+			}
+			bf.append(a[i]);
+		}
+		bf.append("]\n");
+		return bf.toString();
+	}
 }

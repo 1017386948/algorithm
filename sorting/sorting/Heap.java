@@ -4,6 +4,7 @@ import static sorting.Example.isSorted;
 
 import java.util.Arrays;
 import java.util.Random;
+
 @SuppressWarnings("rawtypes")
 public class Heap {
 

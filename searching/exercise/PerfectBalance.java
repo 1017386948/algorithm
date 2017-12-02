@@ -132,8 +132,8 @@ public class PerfectBalance<Key extends Comparable<Key>, Value> {
 		}
 		PerfectBalance<String, Integer> pb = new PerfectBalance<>(keys.toArray(new String[i]),
 				values.toArray(new Integer[i]));
-		for (String s : pb.keys())
-			System.out.println(s + " " + pb.get(s));
+		// for (String s : pb.keys())
+		// System.out.println(s + " " + pb.get(s));
 		System.out.println(pb.avgCompares());
 		System.out.println(BST.optCompares(pb.size()));
 	}
