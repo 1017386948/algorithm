@@ -97,16 +97,11 @@ public class AVL<Key extends Comparable<Key>, Value> {
 				x.right = deleteMin(t.right);
 			}
 		}
-		if (height(x.left) - height(x.right) > 1) {
+		if (height(x.left) - height(x.right) == 2) {
 			if (key.compareTo(x.left.key) < 0)
 				x = leftLeftRotate(x);
 			else
 				x = leftRightRotate(x);
-		} else if (height(x.left) - height(x.right) < -1) {
-			if (key.compareTo(x.right.key) > 0)
-				x = rightRightRotate(x);
-			else
-				x = rightLeftRotate(x);
 		}
 		x.N = size(x.left) + size(x.right) + 1;
 		x.height = Math.max(height(x.left), height(x.right)) + 1;
@@ -123,11 +118,8 @@ public class AVL<Key extends Comparable<Key>, Value> {
 		if (x.left == null)
 			return x.right;
 		x.left = deleteMin(x.left);
-		if (height(x.left) - height(x.right) < -1) {
-			if (size(x.right.right) > size(x.right.left))
-				x = rightRightRotate(x);
-			else
-				x = rightLeftRotate(x);
+		if (height(x.right) - height(x.left) == 2) {
+			x = leftRightRotate(x);
 		}
 		x.N = size(x.left) + size(x.right) + 1;
 		x.height = Math.max(height(x.left), height(x.right)) + 1;
@@ -248,5 +240,6 @@ public class AVL<Key extends Comparable<Key>, Value> {
 		System.out.println(avl.height());
 		avl.delete("he");
 		System.out.println(avl.size());
+		System.out.println(avl.height());
 	}
 }
