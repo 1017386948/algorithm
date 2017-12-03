@@ -318,7 +318,8 @@ public class BST<Key extends Comparable<Key>, Value> {
 
 	public static void main(String[] args) throws IOException {
 		BST<String, Integer> bst = new BST<>();
-		Scanner scanner = new Scanner(new BufferedInputStream(System.in), "UTF-8");
+		Scanner scanner = new Scanner(new BufferedInputStream(System.in),
+				"UTF-8");
 		for (int i = 0; scanner.hasNext(); i++) {
 			String key = scanner.next();
 			bst.put(key, i);
@@ -346,11 +347,13 @@ public class BST<Key extends Comparable<Key>, Value> {
 		// }
 		// System.out.println(i);
 		System.out.println(bst.height());
-		System.out.println(bst.avgCompares());
-		System.out.println(BST.optCompares(10679));
+		// System.out.println(bst.avgCompares());
+		// System.out.println(BST.optCompares(10679));
 		// System.out.println(bst.ceiling("ba"));
 		// System.out.println(bst.size("a", "babble"));
-		System.out.println(bst.isBinaryTree());
-		System.out.println(bst.get("he"));
+		// System.out.println(bst.isBinaryTree());
+		bst.delete("it");
+		System.out.println(bst.size());
+		System.out.println(bst.height());
 	}
 }

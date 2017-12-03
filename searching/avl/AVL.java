@@ -81,11 +81,23 @@ public class AVL<Key extends Comparable<Key>, Value> {
 		if (x == null)
 			return null;
 		int cmp = key.compareTo(x.key);
-		if (cmp < 0)
+		if (cmp < 0) {
 			x.left = delete(x.left, key);
-		else if (cmp > 0)
+			if (height(x.right) - height(x.left) == 2) {
+				if (height(x.right.right) > height(x.right.left))
+					x = rightRightRotate(x);
+				else
+					x = rightLeftRotate(x);
+			}
+		} else if (cmp > 0) {
 			x.right = delete(x.right, key);
-		else {
+			if (height(x.left) - height(x.right) == 2) {
+				if (height(x.left.left) > height(x.left.right))
+					x = leftLeftRotate(x);
+				else
+					x = leftRightRotate(x);
+			}
+		} else {
 			if (x.left == null)
 				return x.right;
 			else if (x.right == null)
@@ -93,25 +105,26 @@ public class AVL<Key extends Comparable<Key>, Value> {
 			else {
 				Node t = x;
 				x = Min(x.right);
-				x.left = t.left;
+				/***********************************************************/
+				/* this place must no write as: */
+				/*** x.left = t.left; */
+				/*** x.right = deleteMin(t.right); */
+				/* if not, you will delete the minimum of x's left-child */
+				/* instead of the minimum of the x's right-child */
+				/***********************************************************/
 				x.right = deleteMin(t.right);
+				x.left = t.left;
 			}
+
 		}
-		if (height(x.left) - height(x.right) == 2) {
-			if (key.compareTo(x.left.key) < 0)
-				x = leftLeftRotate(x);
-			else
-				x = leftRightRotate(x);
-		}
-		x.N = size(x.left) + size(x.right) + 1;
-		x.height = Math.max(height(x.left), height(x.right)) + 1;
+		adjust(x);
 		return x;
 	}
 
 	public void deleteMin() {
 		if (root == null)
 			throw new RuntimeException("Symbol table underflow");
-		deleteMin(root);
+		root = deleteMin(root);
 	}
 
 	private Node deleteMin(Node x) {
@@ -119,10 +132,12 @@ public class AVL<Key extends Comparable<Key>, Value> {
 			return x.right;
 		x.left = deleteMin(x.left);
 		if (height(x.right) - height(x.left) == 2) {
-			x = leftRightRotate(x);
+			if (height(x.right.right) > height(x.right.left))
+				x = rightRightRotate(x);
+			else
+				x = rightLeftRotate(x);
 		}
-		x.N = size(x.left) + size(x.right) + 1;
-		x.height = Math.max(height(x.left), height(x.right)) + 1;
+		adjust(x);
 		return x;
 	}
 
@@ -150,19 +165,19 @@ public class AVL<Key extends Comparable<Key>, Value> {
 			return x.N;
 	}
 
-	private void correctHeight(Node x) {
+	private void adjust(Node x) {
 		x.height = Math.max(height(x.left), height(x.right)) + 1;
+		x.N = size(x.left) + size(x.right) + 1;
 	}
 
 	private Node leftLeftRotate(Node x) {
-		Node t = x.left;
-		t.N = x.N;
-		x.left = t.right;
-		correctHeight(x);
-		t.right = x;
-		correctHeight(t);
-		x.N = size(x.left) + size(x.right) + 1;
-		return t;
+		Node t = x;
+		x = t.left;
+		t.left = x.right;
+		x.right = t;
+		adjust(t);
+		adjust(x);
+		return x;
 	}
 
 	private Node leftRightRotate(Node x) {
@@ -171,14 +186,13 @@ public class AVL<Key extends Comparable<Key>, Value> {
 	}
 
 	private Node rightRightRotate(Node x) {
-		Node t = x.right;
-		t.N = x.N;
-		x.right = t.left;
-		correctHeight(x);
-		t.left = x;
-		correctHeight(t);
-		x.N = size(x.left) + size(x.right) + 1;
-		return t;
+		Node t = x;
+		x = t.right;
+		t.right = x.left;
+		x.left = t;
+		adjust(t);
+		adjust(x);
+		return x;
 	}
 
 	private Node rightLeftRotate(Node x) {
@@ -226,20 +240,25 @@ public class AVL<Key extends Comparable<Key>, Value> {
 
 	public static void main(String[] args) {
 		AVL<String, Integer> avl = new AVL<>();
-		Scanner scanner = new Scanner(new BufferedInputStream(System.in), "UTF-8");
+		Scanner scanner = new Scanner(new BufferedInputStream(System.in),
+				"UTF-8");
 		for (int i = 0; scanner.hasNext(); i++) {
 			String key = scanner.next();
 			avl.put(key, i);
 		}
 		scanner.close();
-		for (String key : avl.keys())
-			System.out.println(key + " " + avl.get(key));
+		// for (String key : avl.keys())
+		// System.out.println(key + " " + avl.get(key));
 		System.out.println(avl.avgCompares());
 		System.out.println(BST.optCompares(10679));
 		System.out.println(avl.size());
 		System.out.println(avl.height());
-		avl.delete("he");
+		System.out.println(avl.get("of"));
+		avl.delete("of");
+		System.out.println(avl.get("of"));
 		System.out.println(avl.size());
 		System.out.println(avl.height());
+		System.out.println();
+
 	}
 }
