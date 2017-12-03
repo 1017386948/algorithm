@@ -3,9 +3,8 @@ package avl;
 import java.io.BufferedInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
-
-import searching.BST;
 
 public class AVL<Key extends Comparable<Key>, Value> {
 	Node root;
@@ -68,8 +67,7 @@ public class AVL<Key extends Comparable<Key>, Value> {
 			}
 		} else
 			x.value = value;
-		x.height = Math.max(height(x.left), height(x.right)) + 1;
-		x.N = size(x.left) + size(x.right) + 1;
+		adjust(x);
 		return x;
 	}
 
@@ -104,16 +102,22 @@ public class AVL<Key extends Comparable<Key>, Value> {
 				return x.left;
 			else {
 				Node t = x;
-				x = Min(x.right);
-				/***********************************************************/
-				/* this place must no write as: */
-				/*** x.left = t.left; */
-				/*** x.right = deleteMin(t.right); */
-				/* if not, you will delete the minimum of x's left-child */
-				/* instead of the minimum of the x's right-child */
-				/***********************************************************/
-				x.right = deleteMin(t.right);
-				x.left = t.left;
+				if (height(x.right) > height(x.left)) {
+					x = Min(x.right);
+					/***********************************************************/
+					/* this place must no write as: */
+					/*** x.left = t.left; */
+					/*** x.right = deleteMin(t.right); */
+					/* if not, you will delete the minimum of x's left-child */
+					/* instead of the minimum of the x's right-child */
+					/***********************************************************/
+					x.right = deleteMin(t.right);
+					x.left = t.left;
+				} else {
+					x = Max(x.left);
+					x.left = deleteMax(t.left);
+					x.right = t.right;
+				}
 			}
 
 		}
@@ -141,6 +145,26 @@ public class AVL<Key extends Comparable<Key>, Value> {
 		return x;
 	}
 
+	public void deleteMax() {
+		if (root == null)
+			throw new RuntimeException("Symbol table underflow");
+		root = deleteMax(root);
+	}
+
+	private Node deleteMax(Node x) {
+		if (x.right == null)
+			return x.left;
+		x.right = deleteMax(x.right);
+		if (height(x.left) - height(x.right) == 2) {
+			if (height(x.left.left) > height(x.left.right))
+				x = leftLeftRotate(x);
+			else
+				x = leftRightRotate(x);
+		}
+		adjust(x);
+		return x;
+	}
+
 	public Key Min() {
 		return Min(root).key;
 	}
@@ -150,6 +174,19 @@ public class AVL<Key extends Comparable<Key>, Value> {
 			return null;
 		if (x.left != null)
 			return Min(x.left);
+		else
+			return x;
+	}
+
+	public Key Max() {
+		return Max(root).key;
+	}
+
+	private Node Max(Node x) {
+		if (x == null)
+			return null;
+		if (x.right != null)
+			return Max(x.right);
 		else
 			return x;
 	}
@@ -232,10 +269,40 @@ public class AVL<Key extends Comparable<Key>, Value> {
 		return (double) totalCompares(x) / size(x);
 	}
 
+	public boolean isAVL() {
+		return isAVL(root);
+	}
+
+	private boolean isAVL(Node x) {
+		if (x == null)
+			return true;
+		if (height(x.left) - height(x.right) > 1
+				|| height(x.left) - height(x.right) < -1)
+			return false;
+		return isAVL(x.left) && isAVL(x.right);
+
+	}
+
 	private int totalCompares(Node x) {
 		if (x == null)
 			return 0;
 		return totalCompares(x.left) + totalCompares(x.right) + size(x);
+	}
+
+	public Node get(int i) {
+		if (i > size(root))
+			throw new IllegalArgumentException(i + " is out of size");
+		return get(root, i);
+	}
+
+	public Node get(Node x, int i) {
+		int t = size(x.left);
+		if (i <= t)
+			return get(x.left, i);
+		else if (i > t + 1)
+			return get(x.right, i - t - 1);
+		else
+			return x;
 	}
 
 	public static void main(String[] args) {
@@ -249,16 +316,31 @@ public class AVL<Key extends Comparable<Key>, Value> {
 		scanner.close();
 		// for (String key : avl.keys())
 		// System.out.println(key + " " + avl.get(key));
-		System.out.println(avl.avgCompares());
-		System.out.println(BST.optCompares(10679));
-		System.out.println(avl.size());
-		System.out.println(avl.height());
-		System.out.println(avl.get("of"));
-		avl.delete("of");
-		System.out.println(avl.get("of"));
-		System.out.println(avl.size());
-		System.out.println(avl.height());
-		System.out.println();
+		// System.out.println(avl.avgCompares());
+		// System.out.println(BST.optCompares(10679));
 
+		System.out.println(avl.size());
+		System.out.println(avl.height());
+		System.out.println(avl.isAVL());
+		Random rand = new Random(System.currentTimeMillis());
+		// for (int i = 0; i < 100;) {
+		// int k = rand.nextInt(avl.size()) + 1;
+		// if (avl.height(avl.get(k)) != 1) {
+		// continue;
+		// }
+		// System.out.println(avl.get(k).key);
+		// avl.delete(avl.get(k).key);
+		// i++;
+		// avl.deleteMax();
+		// avl.deleteMin();
+		// }
+		for (int i = 0; i < 10000; i++) {
+			int k = rand.nextInt(avl.size()) + 1;
+			avl.delete(avl.get(k).key);
+		}
+
+		System.err.println(avl.isAVL());
+		System.err.println(avl.size());
+		System.err.println(avl.height());
 	}
 }

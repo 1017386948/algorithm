@@ -346,14 +346,15 @@ public class BST<Key extends Comparable<Key>, Value> {
 		// i++;
 		// }
 		// System.out.println(i);
-		System.out.println(bst.height());
+		// System.out.println(bst.height());
 		// System.out.println(bst.avgCompares());
 		// System.out.println(BST.optCompares(10679));
 		// System.out.println(bst.ceiling("ba"));
 		// System.out.println(bst.size("a", "babble"));
 		// System.out.println(bst.isBinaryTree());
-		bst.delete("it");
-		System.out.println(bst.size());
-		System.out.println(bst.height());
+		// bst.delete("it");
+		// System.out.println(bst.size());
+		// System.out.println(bst.height());
+		System.out.println(bst.select(1000));
 	}
 }
