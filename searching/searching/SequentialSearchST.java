@@ -1,7 +1,7 @@
 package searching;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import com.algs4.stdlib.StdIn;
 import com.algs4.stdlib.StdOut;
@@ -26,14 +26,15 @@ public class SequentialSearchST<Key, Value> {
 		return null;
 	}
 
-	public void put(Key key, Value value) {
+	public boolean put(Key key, Value value) {
 		for (Node x = first; x != null; x = x.next)
 			if (x.key.equals(key)) {
 				x.value = value;
-				return;
+				return false;
 			}
 		first = new Node(key, value, first);
 		N++;
+		return true;
 	}
 
 	public int size() {
@@ -64,7 +65,7 @@ public class SequentialSearchST<Key, Value> {
 	}
 
 	public Iterable<Key> keys() {
-		Queue<Key> queue = new LinkedList<Key>();
+		Collection<Key> queue = new ArrayList<Key>();
 		for (Node x = first; x != null; x = x.next)
 			queue.add(x.key);
 		return queue;
@@ -74,7 +75,7 @@ public class SequentialSearchST<Key, Value> {
 		SequentialSearchST<String, Integer> st = new SequentialSearchST<>();
 		for (int i = 0; !StdIn.isEmpty(); i++) {
 			String key = StdIn.readString();
-			
+
 			st.put(key, i);
 		}
 		for (String s : st.keys())
