@@ -26,15 +26,14 @@ public class SequentialSearchST<Key, Value> {
 		return null;
 	}
 
-	public boolean put(Key key, Value value) {
+	public void put(Key key, Value value) {
 		for (Node x = first; x != null; x = x.next)
 			if (x.key.equals(key)) {
 				x.value = value;
-				return false;
+				return;
 			}
 		first = new Node(key, value, first);
 		N++;
-		return true;
 	}
 
 	public int size() {
@@ -46,7 +45,7 @@ public class SequentialSearchST<Key, Value> {
 	}
 
 	public boolean contains(Key key) {
-		return get(key) == null;
+		return get(key) != null;
 	}
 
 	public void delete(Key key) {
