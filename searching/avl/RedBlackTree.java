@@ -54,7 +54,9 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> {
 	}
 
 	private int minHeight(Node x) {
-		return x == null ? 0 : Math.min(minHeight(x.left), minHeight(x.right)) + 1;
+		return x == null
+				? 0
+				: Math.min(minHeight(x.left), minHeight(x.right)) + 1;
 	}
 
 	public int totalCmp() {
@@ -153,7 +155,9 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> {
 		System.out.println("size: " + brTree.size());
 		System.out.println("height: " + brTree.height());
 		System.out.println("minimum height: " + brTree.minHeight());
-		System.out.println("average height: " + (double) brTree.totalCmp() / brTree.size());
+		System.out.println("average height: "
+				+ (double) brTree.totalCmp() / brTree.size());
 		System.out.println("ideal height: " + BST.optCompares(brTree.size()));
+		HashMap
 	}
 }
