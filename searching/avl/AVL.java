@@ -12,8 +12,7 @@ public class AVL<Key extends Comparable<Key>, Value> {
 	private class Node {
 		Key key;
 		Value value;
-		Node left;
-		Node right;
+		Node left, right;
 		int height;
 		int N;
 
@@ -276,8 +275,7 @@ public class AVL<Key extends Comparable<Key>, Value> {
 	private boolean isAVL(Node x) {
 		if (x == null)
 			return true;
-		if (height(x.left) - height(x.right) > 1
-				|| height(x.left) - height(x.right) < -1)
+		if (height(x.left) - height(x.right) > 1 || height(x.left) - height(x.right) < -1)
 			return false;
 		return isAVL(x.left) && isAVL(x.right);
 
@@ -307,8 +305,7 @@ public class AVL<Key extends Comparable<Key>, Value> {
 
 	public static void main(String[] args) {
 		AVL<String, Integer> avl = new AVL<>();
-		Scanner scanner = new Scanner(new BufferedInputStream(System.in),
-				"UTF-8");
+		Scanner scanner = new Scanner(new BufferedInputStream(System.in), "UTF-8");
 		for (int i = 0; scanner.hasNext(); i++) {
 			String key = scanner.next();
 			avl.put(key, i);
