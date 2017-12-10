@@ -158,6 +158,6 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> {
 		System.out.println("average height: "
 				+ (double) brTree.totalCmp() / brTree.size());
 		System.out.println("ideal height: " + BST.optCompares(brTree.size()));
-		HashMap
+
 	}
 }
